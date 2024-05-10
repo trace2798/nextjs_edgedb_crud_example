@@ -28,9 +28,9 @@ export async function getProfile(userId: string) {
       console.log(newProfile);
       const result = await newProfile.run(client);
       console.log(result);
-      return result;
+      return new NextResponse(result.id, { status: 200 });
     }
   } catch (error) {
-    return new NextResponse("Profile Action Error", { status: 404 });
+    return new NextResponse("Profile Action Error", { status: 502 });
   }
 }
