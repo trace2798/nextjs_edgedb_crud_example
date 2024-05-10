@@ -15,6 +15,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { createPost } from "@/actions/post";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const FormSchema = z.object({
   content: z
@@ -28,6 +29,7 @@ const FormSchema = z.object({
 });
 
 export function TextareaForm({ profileId }: { profileId: string }) {
+  const router = useRouter();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
@@ -37,6 +39,7 @@ export function TextareaForm({ profileId }: { profileId: string }) {
     console.log(response);
     if (response === "Post Created") {
       toast.success("Post Created");
+      router.refresh();
     } else {
       toast.error(response);
     }
