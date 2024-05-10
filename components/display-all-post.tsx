@@ -31,8 +31,8 @@ const DisplayAllPosts: FC<DisplayAllPostsProps> = ({ posts }) => {
                 </div>
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <p>{post.content}</p>
+            <CardContent className="text-xl font-thin">
+              {post.content}
             </CardContent>
           </Card>
           <Separator />
