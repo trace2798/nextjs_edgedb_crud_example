@@ -11,9 +11,9 @@ interface DisplayAllPostsProps {
 const DisplayAllPosts: FC<DisplayAllPostsProps> = ({ posts }) => {
   return (
     <>
-      {posts.map((post) => (
-        <>
-          <Card key={post.id} className="border border-none w-2/3">
+      {posts.map((post, index) => (
+        <div key={index} className="w-2/3">
+          <Card className="border border-none">
             <CardHeader>
               <CardTitle className="flex text-base">
                 <div>
@@ -36,7 +36,7 @@ const DisplayAllPosts: FC<DisplayAllPostsProps> = ({ posts }) => {
             </CardContent>
           </Card>
           <Separator />
-        </>
+        </div>
       ))}
     </>
   );
