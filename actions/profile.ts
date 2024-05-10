@@ -12,8 +12,9 @@ export async function getProfile(userId: string) {
         filter_single: e.op(profile.userId, "=", e.str(userId)),
       }))
       .run(client);
-    console.log(profile);
-    if (!profile) {
+    if (profile) {
+      return profile;
+    } else {
       const user = await currentUser();
       console.log(user);
       const fullName = user?.fullName;
