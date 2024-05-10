@@ -1,6 +1,29 @@
 import Image from "next/image";
+import { auth, currentUser } from "@clerk/nextjs/server";
+import e, { createClient } from "@/dbschema/edgeql-js";
+import { getProfile } from "@/actions/checkUser";
 
-export default function Home() {
+const client = createClient();
+
+export default async function Home() {
+  const { userId } = auth();
+  console.log(userId);
+  if (userId) {
+    
+
+    // if (!profile) {
+    //   return <div>Post not found</div>;
+    // }
+    // Query DB for user specific information or display assets only to signed in users
+  }
+
+  // Get the Backend API User object when you need access to the user's information
+  const user = await currentUser();
+  console.log(user);
+  const fullName = user?.fullName
+  console.log(fullName);
+  const fromDb = await getProfile(user?.id as string);
+  console.log(fromDb);
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
@@ -111,3 +134,17 @@ export default function Home() {
     </main>
   );
 }
+
+// model Profile {
+//   id       String @id @default(uuid())
+//   userId   String @unique
+//   name     String
+//   imageUrl String @db.Text
+//   email    String @db.Text
+
+//   files      File[]
+//   threads    Thread[]
+//   activities Activity[]
+//   createdAt  DateTime   @default(now())
+//   updatedAt  DateTime   @updatedAt
+// }
