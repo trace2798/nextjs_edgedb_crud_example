@@ -7,7 +7,7 @@ interface CreatePostProps {
 }
 
 const CreatePost: FC<CreatePostProps> = ({ profileId }) => {
-  console.log(profileId);
+
   return (
     <>
       {profileId ? (

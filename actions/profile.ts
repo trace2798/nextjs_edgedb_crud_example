@@ -16,21 +16,16 @@ export async function getProfile(userId: string) {
       return profile;
     } else {
       const user = await currentUser();
-      console.log(user);
-      const fullName = user?.fullName;
-      console.log(fullName);
       const newProfile = e.insert(e.Profile, {
         userId: user?.id as string,
         name: user?.fullName as string,
         email: user?.emailAddresses[0]?.emailAddress as string,
         imageUrl: user?.imageUrl as string,
       });
-      console.log(newProfile);
       const result = await newProfile.run(client);
-      console.log(result);
-      return new NextResponse(result.id, { status: 200 });
+      return "Profile Created";
     }
   } catch (error) {
-    return new NextResponse("Profile Action Error", { status: 502 });
+    return "Profile Action Error";
   }
 }

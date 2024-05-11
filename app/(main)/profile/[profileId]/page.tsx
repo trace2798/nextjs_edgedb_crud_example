@@ -1,7 +1,7 @@
 import e, { createClient } from "@/dbschema/edgeql-js";
+import { auth } from "@clerk/nextjs/server";
 import { FC } from "react";
 import DisplayAllPostsByProfileId from "./_components/display-post-profile-id";
-import { auth } from "@clerk/nextjs/server";
 
 interface PageProps {
   params: {
@@ -32,15 +32,6 @@ const Page: FC<PageProps> = async ({ params }) => {
       },
     }))
     .run(client);
-  //   const profile = await e
-  //     .select(e.Profile, (_profile) => ({
-  //       id: true,
-  //       userId: true,
-  //       filter_single: e.op(_profile.id, "=", e.uuid(params.profileId)),
-  //     }))
-  //     .run(client);
-  //   console.log(profile);
-  console.log(posts);
   return (
     <>
       <div className="flex min-h-screen flex-col items-center p-24">

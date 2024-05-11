@@ -9,9 +9,8 @@ const client = createClient();
 export default async function Home() {
   const user = await currentUser();
   const profile = await getProfile(user?.id as string);
-  console.log(profile);
 
-  const items = await e
+  const posts = await e
     .select(e.Post, (_post) => ({
       id: true,
       content: true,
@@ -28,11 +27,10 @@ export default async function Home() {
     }))
     .run(client);
 
-  console.log(items);
   return (
     <main className="flex min-h-screen flex-col items-center p-24 ">
       <CreatePost profileId={(profile as { id: string })?.id} />
-      <DisplayAllPosts posts={items} />
+      <DisplayAllPosts posts={posts} />
     </main>
   );
 }

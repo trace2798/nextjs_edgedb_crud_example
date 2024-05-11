@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { createPost } from "@/actions/post";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -13,9 +14,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
-import { createPost } from "@/actions/post";
-import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 const FormSchema = z.object({
   content: z
@@ -36,14 +36,12 @@ export function TextareaForm({ profileId }: { profileId: string }) {
 
   const handleSubmit = async (data: z.infer<typeof FormSchema>) => {
     const response = await createPost(profileId, data.content);
-    console.log(response);
     if (response === "Post Created") {
       toast.success("Post Created");
       router.refresh();
     } else {
       toast.error(response);
     }
-    // toast.success("Post Created");
   };
 
   return (

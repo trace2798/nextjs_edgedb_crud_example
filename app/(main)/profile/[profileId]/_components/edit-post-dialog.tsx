@@ -1,32 +1,29 @@
 "use client";
+import { updatePost } from "@/actions/post";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
+  DialogTrigger
 } from "@/components/ui/dialog";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Pencil } from "lucide-react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
-  FormMessage,
+  FormMessage
 } from "@/components/ui/form";
-import { toast } from "sonner";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Pencil } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { updatePost } from "@/actions/post";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { z } from "zod";
 
 const FormSchema = z.object({
   content: z
@@ -47,7 +44,6 @@ const EditPostDialog = ({ post }: { post: any }) => {
 
   const handleUpdate = async (data: z.infer<typeof FormSchema>) => {
     const response = await updatePost(post.id, data.content);
-    console.log(response);
     if (response === "Post Updated") {
       toast.success("Post Updated");
       router.refresh();
