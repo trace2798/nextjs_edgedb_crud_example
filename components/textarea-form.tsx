@@ -68,7 +68,7 @@ export function TextareaForm({ profileId }: { profileId: string }) {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit">Post</Button>
       </form>
     </Form>
   );

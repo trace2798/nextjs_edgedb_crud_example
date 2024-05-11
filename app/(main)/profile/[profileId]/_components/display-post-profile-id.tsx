@@ -1,15 +1,29 @@
-import { FC } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { format, formatRelative, subDays, toDate } from "date-fns";
-import { Separator } from "./ui/separator";
-import Link from "next/link";
+import {
+    Card,
+    CardContent,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card";
+import { format } from "date-fns";
+import { FC } from "react";
 
-interface DisplayAllPostsProps {
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { Trash } from "lucide-react";
+import Link from "next/link";
+import EditPostDialog from "./edit-post-dialog";
+
+interface DisplayAllPostsByProfileIdProps {
   posts: any[];
+  currentUserId: string;
 }
 
-const DisplayAllPosts: FC<DisplayAllPostsProps> = ({ posts }) => {
+const DisplayAllPostsByProfileId: FC<DisplayAllPostsByProfileIdProps> = ({
+  posts,
+  currentUserId,
+}) => {
   return (
     <>
       {posts.map((post, index) => (
@@ -40,6 +54,17 @@ const DisplayAllPosts: FC<DisplayAllPostsProps> = ({ posts }) => {
             <CardContent className="text-xl font-thin">
               {post.content}
             </CardContent>
+            {currentUserId === post.profile.userId && (
+              <CardFooter className="w-full flex justify-between">
+                {/* <Button variant={"secondary"} size={"icon"}>
+                  <Pencil className="h-5 w-5" />
+                </Button> */}
+                <EditPostDialog post={post}/>
+                <Button variant={"destructive"} size={"icon"}>
+                  <Trash className="h-5 w-5" />
+                </Button>
+              </CardFooter>
+            )}
           </Card>
           <Separator />
         </div>
@@ -48,4 +73,6 @@ const DisplayAllPosts: FC<DisplayAllPostsProps> = ({ posts }) => {
   );
 };
 
-export default DisplayAllPosts;
+export default DisplayAllPostsByProfileId;
+
+// 05-11-2024 13:36:11

@@ -1,9 +1,9 @@
 import { getProfile } from "@/actions/profile";
 import CreatePost from "@/components/create-post";
 import DisplayAllPosts from "@/components/display-all-post";
-import e from "@/dbschema/edgeql-js";
+import e, {createClient} from "@/dbschema/edgeql-js";
 import { currentUser } from "@clerk/nextjs/server";
-import createClient from "edgedb";
+// import createClient from "edgedb";
 const client = createClient();
 
 export default async function Home() {
