@@ -58,3 +58,26 @@ export async function updatePost(postId: string, content: string) {
     return "Update Post Action Error";
   }
 }
+
+export async function deletePost(postId: string) {
+  try {
+    // const user = await currentUser();
+    console.log(postId);
+    const post = await e
+      .select(e.Post, (post) => ({
+        // id: true,
+        filter_single: e.op(post.id, "=", e.uuid(postId)),
+      }))
+      .run(client);
+    console.log(post);
+    const deletePost = e.delete(e.Post, (post) => ({
+      filter_single: e.op(post.id, "=", e.uuid(postId)),
+    }));
+    const result = await deletePost.run(client);
+    console.log(result);
+    return "Post Deleted";
+  } catch (error) {
+    console.log(error);
+    return "Delete Post Action Error";
+  }
+}

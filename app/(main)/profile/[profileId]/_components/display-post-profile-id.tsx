@@ -9,10 +9,9 @@ import {
 import { format } from "date-fns";
 import { FC } from "react";
 
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Trash } from "lucide-react";
 import Link from "next/link";
+import DeletePostDialog from "./delete-post-dialog";
 import EditPostDialog from "./edit-post-dialog";
 
 interface DisplayAllPostsByProfileIdProps {
@@ -61,9 +60,10 @@ const DisplayAllPostsByProfileId: FC<DisplayAllPostsByProfileIdProps> = ({
                   <Pencil className="h-5 w-5" />
                 </Button> */}
                 <EditPostDialog post={post} />
-                <Button variant={"destructive"} size={"icon"}>
+                <DeletePostDialog post={post} />
+                {/* <Button variant={"destructive"} size={"icon"}>
                   <Trash className="h-5 w-5" />
-                </Button>
+                </Button> */}
               </CardFooter>
             )}
           </Card>
