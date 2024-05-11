@@ -1,9 +1,5 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-
 import { createPost } from "@/actions/post";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,8 +10,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { z } from "zod";
 
 const FormSchema = z.object({
   content: z
@@ -38,6 +37,7 @@ export function TextareaForm({ profileId }: { profileId: string }) {
     const response = await createPost(profileId, data.content);
     if (response === "Post Created") {
       toast.success("Post Created");
+      form.reset();
       router.refresh();
     } else {
       toast.error(response);

@@ -63,7 +63,7 @@ const EditPostDialog = ({ post }: { post: any }) => {
           <DialogTitle>Edit Post</DialogTitle>
           <DialogDescription>
             Make changes to your post here. This is to show Update functionality
-            using edgedb.
+            using EdgeDB.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">

@@ -19,7 +19,7 @@ const NavBar: FC<NavBarProps> = async ({}) => {
           <ModeToggle />
           {user && <UserButton />}
           {!user && (
-            <Link href="/dashboard">
+            <Link href="/sign-in">
               <Button variant="ghost">Login</Button>
             </Link>
           )}
