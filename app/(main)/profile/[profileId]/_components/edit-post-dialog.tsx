@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -11,8 +12,49 @@ import {
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Pencil } from "lucide-react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { updatePost } from "@/actions/post";
+
+const FormSchema = z.object({
+  content: z
+    .string()
+    .min(10, {
+      message: "content must be at least 10 characters.",
+    })
+    .max(160, {
+      message: "content must not be longer than 30 characters.",
+    }),
+});
 
 const EditPostDialog = ({ post }: { post: any }) => {
+  const router = useRouter();
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+  });
+
+  const handleUpdate = async (data: z.infer<typeof FormSchema>) => {
+    const response = await updatePost(post.id, data.content);
+    console.log(response);
+    if (response === "Post Updated") {
+      toast.success("Post Updated");
+      router.refresh();
+    } else {
+      toast.error("Error Updating Post");
+    }
+  };
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -33,16 +75,32 @@ const EditPostDialog = ({ post }: { post: any }) => {
             <Label htmlFor="name" className="text-left">
               Content
             </Label>
-            <Textarea
-              id="name"
-              defaultValue={post.content}
-              className="col-span-3"
-            />
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(handleUpdate)}
+                className="space-y-6"
+              >
+                <FormField
+                  control={form.control}
+                  name="content"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Textarea
+                          defaultValue={post.content}
+                          className="resize-none"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button type="submit">Update Post</Button>
+              </form>
+            </Form>
           </div>
         </div>
-        <DialogFooter>
-          <Button type="submit">Save changes</Button>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

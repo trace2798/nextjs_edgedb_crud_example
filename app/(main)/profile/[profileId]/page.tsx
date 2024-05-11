@@ -18,6 +18,7 @@ const Page: FC<PageProps> = async ({ params }) => {
       id: true,
       content: true,
       created: true,
+      updated: true,
       profile: {
         id: true,
         name: true,

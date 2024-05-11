@@ -1,10 +1,10 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
-    Card,
-    CardContent,
-    CardFooter,
-    CardHeader,
-    CardTitle,
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
 } from "@/components/ui/card";
 import { format } from "date-fns";
 import { FC } from "react";
@@ -47,6 +47,7 @@ const DisplayAllPostsByProfileId: FC<DisplayAllPostsByProfileIdProps> = ({
                       {" "}
                       {format(new Date(post.created), "MM-dd-yyyy HH:mm:ss")}
                     </h1>
+                    {/* <h1>Updated at:   {format(new Date(post.updated), "MM-dd-yyyy HH:mm:ss")}</h1> */}
                   </div>
                 </CardTitle>
               </Link>
@@ -59,7 +60,7 @@ const DisplayAllPostsByProfileId: FC<DisplayAllPostsByProfileIdProps> = ({
                 {/* <Button variant={"secondary"} size={"icon"}>
                   <Pencil className="h-5 w-5" />
                 </Button> */}
-                <EditPostDialog post={post}/>
+                <EditPostDialog post={post} />
                 <Button variant={"destructive"} size={"icon"}>
                   <Trash className="h-5 w-5" />
                 </Button>
